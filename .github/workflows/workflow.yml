@@ -1,0 +1,32 @@
+# play with dispatch vs push triggering and joining up the
+# values
+name: Triggered
+
+permissions:
+  contents: read
+
+
+on:
+  # trigger on platform tags
+  push:
+   tags:
+     - 'v*'
+  workflow_dispatch:
+    inputs:
+      image_tag:
+        description: "Image tag for helm to use for deployment to EKS"
+        required: true
+        type: string
+
+jobs:
+  trial-run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: step_a
+        env:
+          IN_SHA: ${{inputs.image_tag}}
+        run: |
+          echo ":notice: image_tag is $IN_SHA"
+
