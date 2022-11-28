@@ -28,7 +28,7 @@ jobs:
           echo ":notice: trigging from tag, sha is is $IN_SHA"
 
 
-  call-gotinput-manual:
+  call:
     # this needs a version or commit hash
     # uses: digikata/action-test/.github/workflows/10-gotinput.yaml@vABC
 
