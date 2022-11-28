@@ -15,8 +15,6 @@ on:
 jobs:
   tag1:
     runs-on: ubuntu-latest
-    outputs:
-      image_sha: ${{ steps.info.outputs.image_sha }}
 
     steps:
       - uses: actions/checkout@v3
@@ -27,13 +25,13 @@ jobs:
           echo ":notice: image_tag is $GITHUB_SHA"
           echo "image_sha=$GITHUB_SHA" >> $GITHUB_OUTPUT
 
-  call:
-    needs: tag1
-    # this needs a version or commit hash
-    # uses: digikata/action-test/.github/workflows/10-gotinput.yaml@vABC
+      - name: callit
+          # this needs a version or commit hash
+          # uses: digikata/action-test/.github/workflows/10-gotinput.yaml@vABC
 
-    # this variant doesn't
-    uses: ./.github/workflows/10-gotinput.yaml
-    with:
-      image_sha: ${{ needs.tag1.outputs.image_sha }}
+          # this variant doesn't
+          uses: ./.github/workflows/10-gotinput.yaml
+          with:
+            image_sha: ${{ steps.info.outputs.image_sha }}
+
 
