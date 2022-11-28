@@ -23,4 +23,8 @@ jobs:
           IN_SHA: ${{ inputs.image_sha }}
         run: |-
           echo :notice: image_sha is $IN_SHA
+          if [ -z $IN_SHA ]; then
+            echo ":error:" Blank image_sha
+            exit 1
+          fi
 

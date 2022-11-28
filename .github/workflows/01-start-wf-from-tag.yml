@@ -15,11 +15,14 @@ on:
 jobs:
   tag1:
     runs-on: ubuntu-latest
+    outputs:
+      image_sha: ${{ steps.info.outputs.image_sha }}
 
     steps:
       - uses: actions/checkout@v3
 
       - name: pre-call-info
+        id: info
         run: |-
           echo ":notice: image_tag is $GITHUB_SHA"
           echo "image_sha=$GITHUB_SHA" >> $GITHUB_OUTPUT
