@@ -21,8 +21,8 @@ jobs:
 
       - name: pre-call-info
         run: |-
-          echo ":notice: image_tag is $GIT_SHA"
-          echo "image_sha=$GIT_SHA" >> $GITHUB_OUTPUT
+          echo ":notice: image_tag is $GITHUB_SHA"
+          echo "image_sha=$GITHUB_SHA" >> $GITHUB_OUTPUT
 
   call:
     needs: tag1
