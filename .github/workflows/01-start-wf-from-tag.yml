@@ -10,7 +10,7 @@ on:
   # trigger on platform tags
   push:
    tags:
-     - 'v*'
+     - 'b*'
 
 jobs:
   tag1:
@@ -26,12 +26,12 @@ jobs:
           echo "image_sha=$GITHUB_SHA" >> $GITHUB_OUTPUT
 
       - name: callit
-          # this needs a version or commit hash
-          # uses: digikata/action-test/.github/workflows/10-gotinput.yaml@vABC
+        # this needs a version or commit hash
+        # uses: digikata/action-test/.github/workflows/10-gotinput.yaml@vABC
 
-          # this variant doesn't
-          uses: ./.github/workflows/10-gotinput.yaml
-          with:
-            image_sha: ${{ steps.info.outputs.image_sha }}
+        # this variant doesn't
+        uses: ./.github/workflows/10-gotinput.yaml
+        with:
+          image_sha: ${{ steps.info.outputs.image_sha }}
 
 
