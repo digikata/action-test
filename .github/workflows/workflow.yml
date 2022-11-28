@@ -14,7 +14,7 @@ on:
   workflow_dispatch:
     inputs:
       image_tag:
-        description: "Image tag for helm to use for deployment to EKS"
+        description: "Input a string sha"
         required: true
         type: string
 
@@ -24,9 +24,18 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      - name: set_image_tag
+        run: |
+          echo "image_tag=${GIT_SHA} >> $GITHUB_OUTPUT
+
       - name: step_a
         env:
-          IN_SHA: ${{inputs.image_tag}}
+          IN_SHA: ${{ inputs.image_tag }}
         run: |
           echo ":notice: image_tag is $IN_SHA"
 
+      - name: step_b
+        env:
+          IN_SHA: ${{ image_tag }}
+        run: |
+          echo ":notice: image_tag is $IN_SHA"
