@@ -25,7 +25,8 @@ jobs:
           echo ":notice: image_tag is $GIT_SHA"
           echo "image_sha=$GIT_SHA" >> $GITHUB_OUTPUT
 
-  call-gotinput-tag:
+  call:
+    needs: start-from-tag
     # this needs a version or commit hash
     # uses: digikata/action-test/.github/workflows/10-gotinput.yaml@vABC
 
