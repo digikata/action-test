@@ -13,24 +13,24 @@ on:
      - 'v*'
 
 jobs:
-  start-from-tag:
+  tag1:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
 
       - name: pre-call-info
-        id: info
         run: |-
           echo ":notice: image_tag is $GIT_SHA"
           echo "image_sha=$GIT_SHA" >> $GITHUB_OUTPUT
 
-  call-gotinput-tag:
+  call:
+    needs: tag1
     # this needs a version or commit hash
     # uses: digikata/action-test/.github/workflows/10-gotinput.yaml@vABC
 
     # this variant doesn't
     uses: ./.github/workflows/10-gotinput.yaml
     with:
-      image_sha: ${{ info.image_sha }}
+      image_sha: ${{ tag1.outputs.image_sha }}
 
