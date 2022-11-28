@@ -12,6 +12,7 @@ on:
         description: "Input a string sha"
         required: true
         type: string
+
 jobs:
   run-with-input:
     runs-on: ubuntu-latest

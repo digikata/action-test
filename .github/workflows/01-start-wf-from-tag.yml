@@ -20,10 +20,10 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: pre-call-info
-        env:
-          IN_SHA: ${ GIT_SHA }
-        run: |
-          echo ":notice: image_tag is $IN_SHA"
+        id: info
+        run: |-
+          echo ":notice: image_tag is $GIT_SHA"
+          echo "image_sha=$GIT_SHA" >> $GITHUB_OUTPUT
 
   call-gotinput-tag:
     # this needs a version or commit hash
@@ -32,5 +32,5 @@ jobs:
     # this variant doesn't
     uses: ./.github/workflows/10-gotinput.yaml
     with:
-      image_sha: ${ GIT_SHA }
+      image_sha: ${{ info.image_sha }}
 

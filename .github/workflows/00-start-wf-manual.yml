@@ -36,3 +36,4 @@ jobs:
     uses: ./.github/workflows/10-gotinput.yaml
     with:
       image_sha: ${{ inputs.image_sha }}
+
