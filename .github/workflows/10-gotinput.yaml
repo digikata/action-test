@@ -20,7 +20,6 @@ jobs:
       - name: got an input
         env:
           IN_SHA: ${{ inputs.image_sha }}
-        run: |
-          echo ":notice: image_sha is $IN_SHA"
-
+        run: |-
+          echo :notice: image_sha is $IN_SHA
 

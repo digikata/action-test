@@ -1,6 +1,6 @@
 # play with dispatch vs push triggering and joining up the
 # values
-name: Triggered from Manual Dispatch
+name: 00 Triggered from Manual Dispatch
 
 permissions:
   contents: read
@@ -26,9 +26,9 @@ jobs:
           IN_SHA: ${{ inputs.image_sha }}
         run: |
           echo ":notice: trigging from tag, sha is is $IN_SHA"
-          echo "image_sha=${GIT_SHA} >> $GITHUB_OUTPUT
 
-  call-gotinput:
+
+  call-gotinput-manual:
     # this needs a version or commit hash
     # uses: digikata/action-test/.github/workflows/10-gotinput.yaml@vABC
 

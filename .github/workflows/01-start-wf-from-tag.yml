@@ -1,6 +1,6 @@
 # play with dispatch vs push triggering and joining up the
 # values
-name: Triggered from Tag
+name: 01 Triggered from Tag
 
 permissions:
   contents: read
@@ -25,7 +25,7 @@ jobs:
         run: |
           echo ":notice: image_tag is $IN_SHA"
 
-  call-gotinput:
+  call-gotinput-tag:
     # this needs a version or commit hash
     # uses: digikata/action-test/.github/workflows/10-gotinput.yaml@vABC
 
