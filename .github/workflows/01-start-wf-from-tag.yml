@@ -1,0 +1,36 @@
+# play with dispatch vs push triggering and joining up the
+# values
+name: Triggered from Tag
+
+permissions:
+  contents: read
+
+
+on:
+  # trigger on platform tags
+  push:
+   tags:
+     - 'v*'
+
+jobs:
+  start-from-tag:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: pre-call-info
+        env:
+          IN_SHA: ${ GIT_SHA }
+        run: |
+          echo ":notice: image_tag is $IN_SHA"
+
+  call-gotinput:
+    # this needs a version or commit hash
+    # uses: digikata/action-test/.github/workflows/10-gotinput.yaml@vABC
+
+    # this variant doesn't
+    uses: ./.github/workflows/10-gotinput.yaml
+    with:
+      image_sha: ${ GIT_SHA }
+

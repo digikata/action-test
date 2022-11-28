@@ -13,13 +13,13 @@ on:
         required: true
         type: string
 jobs:
-  trial-run:
+  run-with-input:
     runs-on: ubuntu-latest
 
     steps:
       - name: got an input
         env:
-          IN_SHA: ${{ image_sha }}
+          IN_SHA: ${{ inputs.image_sha }}
         run: |
           echo ":notice: image_sha is $IN_SHA"
 

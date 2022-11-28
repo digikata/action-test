@@ -1,16 +1,12 @@
 # play with dispatch vs push triggering and joining up the
 # values
-name: Triggered
+name: Triggered from Manual Dispatch
 
 permissions:
   contents: read
 
 
 on:
-  # trigger on platform tags
-  push:
-   tags:
-     - 'v*'
   workflow_dispatch:
     inputs:
       image_sha:
@@ -19,20 +15,17 @@ on:
         type: string
 
 jobs:
-  trial-run:
+  start-wf-manual:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
-      - name: set_image_sha_from_git_tag
-        run: |
-          echo "image_sha=${GIT_SHA} >> $GITHUB_OUTPUT
 
       - name: pre-call-info
         env:
           IN_SHA: ${{ inputs.image_sha }}
         run: |
-          echo ":notice: image_tag is $IN_SHA"
+          echo ":notice: trigging from tag, sha is is $IN_SHA"
           echo "image_sha=${GIT_SHA} >> $GITHUB_OUTPUT
 
   call-gotinput:
@@ -41,3 +34,5 @@ jobs:
 
     # this variant doesn't
     uses: ./.github/workflows/10-gotinput.yaml
+    with:
+      image_sha: ${{ inputs.image_sha }}
