@@ -13,7 +13,7 @@ on:
      - 'v*'
   workflow_dispatch:
     inputs:
-      image_tag:
+      image_sha:
         description: "Input a string sha"
         required: true
         type: string
@@ -24,18 +24,20 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: set_image_tag
+      - name: set_image_sha_from_git_tag
         run: |
-          echo "image_tag=${GIT_SHA} >> $GITHUB_OUTPUT
+          echo "image_sha=${GIT_SHA} >> $GITHUB_OUTPUT
 
-      - name: step_a
+      - name: pre-call-info
         env:
-          IN_SHA: ${{ inputs.image_tag }}
+          IN_SHA: ${{ inputs.image_sha }}
         run: |
           echo ":notice: image_tag is $IN_SHA"
+          echo "image_sha=${GIT_SHA} >> $GITHUB_OUTPUT
 
-      - name: step_b
-        env:
-          IN_SHA: ${{ image_tag }}
-        run: |
-          echo ":notice: image_tag is $IN_SHA"
+  call-gotinput:
+    # this needs a version or commit hash
+    # uses: digikata/action-test/.github/workflows/10-gotinput.yaml@vABC
+
+    # this variant doesn't
+    uses: ./.github/workflows/10-gotinput.yaml
