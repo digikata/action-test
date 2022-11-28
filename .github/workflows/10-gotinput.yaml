@@ -18,6 +18,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v3
+
       - name: got an input
         env:
           IN_SHA: ${{ inputs.image_sha }}
