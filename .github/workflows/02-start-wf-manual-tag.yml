@@ -1,34 +1,39 @@
 # play with dispatch vs push triggering and joining up the
-# values
-name: 00 Triggered from Manual Dispatch
+# values, resolve tag to sha
+name: 02 Triggered from Manual Dispatch
 
 permissions:
   contents: read
 
-
 on:
   workflow_dispatch:
     inputs:
-      image_sha:
-        description: "Input a string sha"
+      image_tag:
+        description: "Input a string tag"
         required: true
         type: string
 
 jobs:
-  start-wf-manual:
+  tag_resolve:
     runs-on: ubuntu-latest
+    outputs:
+      image_sha: ${{ steps.convert.outputs.image_sha }}
 
     steps:
       - uses: actions/checkout@v3
 
-      - name: pre-call-info
+      - name: Convert tag to sha
+        id: convert
         env:
-          IN_SHA: ${{ inputs.image_sha }}
+          IN_SHA: ${{ inputs.image_tag }}
         run: |
-          echo ":notice: trigging from tag, sha is is $IN_SHA"
-
+          echo ":notice: trigger from tag, sha is is $IN_SHA"
+          sha=git rev-parse HEAD
+          echo ":notice: image_tag is $sha"
+          echo "image_sha=$sha" >> $GITHUB_OUTPUT
 
   call-gotinput:
+    needs: tag_resolve
     # this needs a version or commit hash
     # uses: digikata/action-test/.github/workflows/10-gotinput.yaml@vABC
 
