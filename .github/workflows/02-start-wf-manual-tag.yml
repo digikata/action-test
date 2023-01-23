@@ -28,7 +28,7 @@ jobs:
           IN_SHA: ${{ inputs.image_tag }}
         run: |
           echo ":notice: trigger from tag, sha is is $IN_SHA"
-          sha=git rev-parse HEAD
+          sha=$(git rev-parse HEAD)
           echo ":notice: image_tag is $sha"
           echo "image_sha=$sha" >> $GITHUB_OUTPUT
 
