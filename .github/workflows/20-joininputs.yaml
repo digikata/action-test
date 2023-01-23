@@ -22,11 +22,11 @@ jobs:
       image_sha_com: ${{ steps.info.outputs.image_sha_com }}
 
     steps:
-      - name: Setup Environment (manual dispath)
+      - name: Setup Environment (manual dispatch)
         if: ${{ github.event_name == 'workflow_dispatch' }}
         shell: bash
         run: |
-          echo "IMAGE_SHA_COM=${{ github.event.inputs.image_tag}}" >> ${GITHUB_ENV}
+          echo "IMAGE_SHA_COM=${{ github.event.workflow_dispath.inputs.image_tag}}" >> ${GITHUB_ENV}
       - name: Setup Environment (Push)
         if: ${{ github.event_name == 'push' }}
         shell: bash

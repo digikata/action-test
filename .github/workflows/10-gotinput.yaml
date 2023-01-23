@@ -1,6 +1,6 @@
 # play with dispatch vs push triggering and joining up the
 # values
-name: GotAnInput
+name: 10 GotAnInput
 
 permissions:
   contents: read
