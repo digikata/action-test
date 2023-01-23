@@ -18,9 +18,6 @@ on:
 jobs:
   set_inputs:
     runs-on: ubuntu-latest
-    outputs:
-      image_sha: ${{ steps.from_dispatch.outputs.image_sha_com }}
-
     steps:
       - name: Setup Environment (manual dispatch)
         id: from_dispatch
@@ -34,6 +31,8 @@ jobs:
         shell: bash
         run: |
           echo "image_sha=${GITHUB_SHA}" >> ${GITHUB_ENV}
+    outputs:
+      image_sha: ${{ steps.from_dispatch.outputs.image_sha_com }} ${{ steps.from_push.outputs.image_sha_com }}
 
   operate:
     needs: set_inputs
