@@ -40,5 +40,5 @@ jobs:
     # this variant doesn't
     uses: ./.github/workflows/10-gotinput.yaml
     with:
-      image_sha: ${{ needs.convert.outputs.image_sha }}
+      image_sha: ${{ needs.tag_resolve.outputs.image_sha }}
 
