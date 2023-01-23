@@ -26,12 +26,12 @@ jobs:
         if: ${{ github.event_name == 'workflow_dispatch' }}
         shell: bash
         run: |
-          echo "IMAGE_SHA_COM=${{ github.event.workflow_dispath.inputs.image_tag}}" >> ${GITHUB_ENV}
+          echo "IMAGE_SHA_COM=${{ inputs.image_sha }}" >> ${GITHUB_ENV}
       - name: Setup Environment (Push)
         if: ${{ github.event_name == 'push' }}
         shell: bash
         run: |
-          echo "IMAGE_SHA_COM=${{ github.event.sha}}" >> ${GITHUB_ENV}
+          echo "IMAGE_SHA_COM=${GITHUB_SHA}" >> ${GITHUB_ENV}
 
   operate:
     runs-on: ubuntu-latest
