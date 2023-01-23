@@ -1,6 +1,6 @@
 # play with dispatch vs push triggering and joining up the
 # values, resolve tag to sha
-name: 02 Triggered from Manual Dispatch
+name: 02 Triggered from Manual Dispatch Tag
 
 permissions:
   contents: read
@@ -30,7 +30,7 @@ jobs:
           echo ":notice: trigger from tag, sha is is $IN_SHA"
           sha=$(git rev-parse HEAD)
           echo ":notice: image_tag is $sha"
-          echo "image_sha=$sha" >> $GITHUB_OUTPUT
+          echo "image_sha=${sha}" >> $GITHUB_OUTPUT
 
   call-gotinput:
     needs: tag_resolve
@@ -40,5 +40,5 @@ jobs:
     # this variant doesn't
     uses: ./.github/workflows/10-gotinput.yaml
     with:
-      image_sha: ${{ inputs.image_sha }}
+      image_sha: ${{ needs.convert.outputs.image_sha }}
 

@@ -1,6 +1,6 @@
 # play with dispatch vs push triggering and joining up the
 # values
-name: 00 Triggered from Manual Dispatch
+name: 00 Triggered from Manual Dispatch Sha
 
 permissions:
   contents: read

@@ -1,6 +1,6 @@
 # play with dispatch vs push triggering and joining up the
 # values
-name: 01 Triggered from Tag
+name: 01 Triggered from Tag Push
 
 permissions:
   contents: read
@@ -20,7 +20,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-
       - name: pre-call-info
         id: info
         run: |-
