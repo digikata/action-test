@@ -1,0 +1,52 @@
+# play with dispatch vs push triggering and joining up the
+# values
+name: 10 GotAnInput
+
+permissions:
+  contents: read
+
+on:
+  push:
+    branches:
+      - main
+      - r1
+      - r2
+
+jobs:
+
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      branch_action: ${{ steps.set_branch.outputs.branch_action }}
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Branch is Main
+        if: ${{ github.ref_name }} == "main"}}
+        run: |
+          echo "BRANCH_ACTION=main" >> $GITHUB_ENV
+      - name: Branch is R1
+        if: ${{ github.ref_name }} == "r1"}}
+        run: |
+          echo "BRANCH_ACTION=r1" >> $GITHUB_ENV
+      - name: Branch is R2
+        if: ${{ github.ref_name }} == "r2"}}
+        run: |
+          echo "BRANCH_ACTION=r2" >> $GITHUB_ENV
+      - name: Set Branch
+        id: set_branch
+        run: |
+          echo ":notice: branch_action is $BRANCH_ACTION"
+          echo "branch_action=$BRANCH_ACTION" >> $GITHUB_OUTPUT
+  act:
+    needs: setup
+    runs-on: ubuntu-latest
+    env:
+      BA: ${{ needs.setup.output.branch_action }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Action
+        run: |
+          echo "Action is ${{ needs.setup.output.branch_action }} $BA"
+
+
