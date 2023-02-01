@@ -42,11 +42,11 @@ jobs:
     needs: setup
     runs-on: ubuntu-latest
     env:
-      BA: ${{ needs.setup.output.branch_action }}
+      BA: ${{ needs.setup.outputs.branch_action }}
     steps:
       - uses: actions/checkout@v3
       - name: Action
         run: |
-          echo "Action is ${{ needs.setup.output.branch_action }} $BA"
+          echo "Action is ${{ needs.setup.outputs.branch_action }} $BA"
 
 
