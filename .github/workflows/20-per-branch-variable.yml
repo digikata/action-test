@@ -30,7 +30,7 @@ jobs:
         run: |
           echo "BRANCH_ACTION=r1" >> $GITHUB_ENV
       - name: Branch is R2
-        if: github.ref_name == "r2"
+        if: ${{ github.ref_name }} == "r2"
         run: |
           echo "BRANCH_ACTION=r2" >> $GITHUB_ENV
       - name: Set Branch
