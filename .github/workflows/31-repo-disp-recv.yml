@@ -18,6 +18,8 @@ jobs:
           echo SHA ${{ github.event.client_payload.sha }}
           echo "GITHUB_SHA=${{ github.event.client_payload.sha }}" >> $GITHUB_ENV
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.GITHUB_SHA }}
       - name: Note
         run: |
           cat NOTE
