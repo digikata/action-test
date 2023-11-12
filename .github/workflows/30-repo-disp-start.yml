@@ -1,0 +1,17 @@
+name: RD Send
+
+on:
+  workflow_dispatch:
+
+jobs:
+  fire_event:
+    runs-on: ubuntu-latest
+    steps:
+      - name: repo dispatch
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          event-type: repo-ev
+          client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
+      - run: |
+        echo Done
+
