@@ -9,11 +9,13 @@ jobs:
   j1:
     runs-on: ubuntu-latest
     steps:
-      - run: |
-        echo Received event
-      - run: |
-        echo ${{ github.event.client_payload.sha }}
-        echo "GITHUB_SHA=${{ github.event.client_payload.sha }}" >> $GITHUB_ENV
+      - name: Received
+        run: |
+          echo Received event
+      - name: Sha
+        run: |
+          echo ${{ github.event.client_payload.sha }}
+          echo "GITHUB_SHA=${{ github.event.client_payload.sha }}" >> $GITHUB_ENV
       - uses: actions/checkout@v4
       - name: Note
         run: |
