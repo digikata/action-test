@@ -14,7 +14,8 @@ jobs:
           echo Received event
       - name: Sha
         run: |
-          echo ${{ github.event.client_payload.sha }}
+          echo REF ${{ github.event.client_payload.ref }}
+          echo SHA ${{ github.event.client_payload.sha }}
           echo "GITHUB_SHA=${{ github.event.client_payload.sha }}" >> $GITHUB_ENV
       - uses: actions/checkout@v4
       - name: Note
