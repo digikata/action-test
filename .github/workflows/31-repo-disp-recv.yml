@@ -12,11 +12,12 @@ jobs:
       - name: Received
         run: |
           echo Received event
-      - name: Sha
+      - name: Setup
         run: |
           echo REF ${{ github.event.client_payload.ref }}
           echo SHA ${{ github.event.client_payload.sha }}
           echo "GITHUB_SHA=${{ github.event.client_payload.sha }}" >> $GITHUB_ENV
+          echo "github_sha=${{ github.event.client_payload.sha }}" >> $GITHUB_OUTPUT
       - uses: actions/checkout@v4
         with:
           ref: ${{ env.GITHUB_SHA }}
@@ -24,12 +25,20 @@ jobs:
         run: |
           cat NOTE
   j2:
+    needs: [j1]
     runs-on: ubuntu-latest
-    env: GITHUB_SHA ${{ env.GITHUB_SHA }}
+    env: 
+      G1: ${{env.GITHUB_SHA }}
+      GITHUB_SHA: ${{ j1.output.github_sha }}
     steps:
       - name: Sha
         run: |
           echo env.SHA ${{ env.GITHUB_SHA }}
-          echo SHA "$GITHUB_SHA"
+          echo G1 SHA "$G1"
+          echo GITHUB_SHA "$GITHUB_SHA"
+      - uses: actions/checkout@v4
+      - name: Note
+        run: |
+          cat NOTE
     
     
