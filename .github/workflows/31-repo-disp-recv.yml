@@ -28,13 +28,11 @@ jobs:
     needs: [j1]
     runs-on: ubuntu-latest
     env: 
-      G1: ${{env.GITHUB_SHA }}
       GITHUB_SHA: ${{ j1.output.github_sha }}
     steps:
       - name: Sha
         run: |
           echo env.SHA ${{ env.GITHUB_SHA }}
-          echo G1 SHA "$G1"
           echo GITHUB_SHA "$GITHUB_SHA"
       - uses: actions/checkout@v4
       - name: Note
