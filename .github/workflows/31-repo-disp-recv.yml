@@ -29,12 +29,16 @@ jobs:
     runs-on: ubuntu-latest
     env: 
       GITHUB_SHA: ${{needs.j1.outputs.github_sha }}
+      PR_SHA: ${{needs.j1.outputs.github_sha }}
     steps:
       - name: Sha
         run: |
           echo env.SHA ${{ env.GITHUB_SHA }}
           echo GITHUB_SHA "$GITHUB_SHA"
+          echo PR_SHA "$PR_SHA"
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.PR_SHA }}
       - name: Note
         run: |
           cat NOTE
