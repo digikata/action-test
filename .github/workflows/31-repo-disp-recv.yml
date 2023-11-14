@@ -28,7 +28,7 @@ jobs:
     needs: j1
     runs-on: ubuntu-latest
     env: 
-      GITHUB_SHA: ${{ j1.output.github_sha }}
+      GITHUB_SHA: ${{needs.j1.outputs.github_sha }}
     steps:
       - name: Sha
         run: |
