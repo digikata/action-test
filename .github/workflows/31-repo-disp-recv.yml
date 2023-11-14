@@ -23,4 +23,10 @@ jobs:
       - name: Note
         run: |
           cat NOTE
-
+  j2:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sha
+        run: |
+          echo SHA ${{ env.GITHUB_SHA }}
+    
