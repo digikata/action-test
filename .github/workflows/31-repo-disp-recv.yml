@@ -18,7 +18,7 @@ jobs:
     steps:
       - name: Receive 
         run: |
-          echo name ${{ github.event.event_name }}
+          echo event_name ${{ github.event_name }}
           echo REF ${{ github.event.client_payload.ref }}
           echo SHA ${{ github.event.client_payload.sha }}
           echo "GITHUB_REF=${{ github.event.client_payload.ref }}" >> $GITHUB_ENV
