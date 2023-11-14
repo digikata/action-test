@@ -38,7 +38,7 @@ jobs:
           echo PR_SHA "$PR_SHA"
       - uses: actions/checkout@v4
         with:
-          ref: ${{ env.PR_SHA }}
+          ref: ${PR_SHA}
       - name: Note
         run: |
           cat NOTE
