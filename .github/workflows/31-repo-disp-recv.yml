@@ -17,8 +17,8 @@ jobs:
       github_ref: ${{ steps.final.outputs.github_ref }}
     steps:
       - name: Receive 
-        if: github.event == "repository_dispatch"
         run: |
+          echo name ${{ github.event.event_name }}
           echo REF ${{ github.event.client_payload.ref }}
           echo SHA ${{ github.event.client_payload.sha }}
           echo "GITHUB_REF=${{ github.event.client_payload.ref }}" >> $GITHUB_ENV
