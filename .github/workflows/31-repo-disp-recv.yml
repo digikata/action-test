@@ -24,7 +24,7 @@ jobs:
           echo "GITHUB_REF=${{ github.event.client_payload.ref }}" >> $GITHUB_ENV
           echo "GITHUB_SHA=${{ github.event.client_payload.sha }}" >> $GITHUB_ENV
       - name: Receive 
-        if: github.event == "workflow_dispatch"
+        #if: github.event == "workflow_dispatch"
         run: |
           echo REF none
           echo SHA ${{ github.event.client_payload.sha }}
