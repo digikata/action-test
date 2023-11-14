@@ -4,7 +4,11 @@ name: 31 Recv Repository Dispatch
 on:
   repository_dispatch:
     types: [ repo-ev ]
-
+  workflow_dispatch:
+    inputs:
+      sha:
+        type: String
+        required: true
 jobs:
   j1:
     runs-on: ubuntu-latest
@@ -27,6 +31,11 @@ jobs:
       - name: Note
         run: |
           cat NOTE
+      - name: option
+        run: |
+          multisha="${{ github.input.sha || env.GITHUB_SHA }}"
+          echo multisha: "$multisha"
+  
   j2:
     needs: j1
     runs-on: ubuntu-latest
