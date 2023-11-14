@@ -13,29 +13,30 @@ jobs:
   j1:
     runs-on: ubuntu-latest
     outputs:
-      github_sha: ${{ steps.setup.outputs.github_sha }}
+      github_sha: ${{ steps.final.outputs.github_sha }}
+      github_ref: ${{ steps.final.outputs.github_ref }}
     steps:
-      - name: Received
-        run: |
-          echo Received event
-      - name: Setup
-        id: setup
+      - name: Receive 
+        if: github.event == "repository_dispatch"
         run: |
           echo REF ${{ github.event.client_payload.ref }}
           echo SHA ${{ github.event.client_payload.sha }}
+          echo "GITHUB_REF=${{ github.event.client_payload.ref }}" >> $GITHUB_ENV
           echo "GITHUB_SHA=${{ github.event.client_payload.sha }}" >> $GITHUB_ENV
-          echo "github_sha=${{ github.event.client_payload.sha }}" >> $GITHUB_OUTPUT
-      - uses: actions/checkout@v4
-        with:
-          ref: ${{ env.GITHUB_SHA }}
-      - name: Note
+      - name: Receive 
+        if: github.event == "workflow_dispatch"
         run: |
-          cat NOTE
-      - name: option
+          echo REF none
+          echo SHA ${{ github.event.client_payload.sha }}
+          echo "GITHUB_REF=none" >> $GITHUB_ENV
+          echo "GITHUB_SHA=${{ github.event.client_payload.sha }}" >> $GITHUB_ENV
+      - name: Output
+        id: final
         run: |
-          multisha="${{ github.input.sha || env.GITHUB_SHA }}"
-          echo multisha: "$multisha"
-  
+          GITHUB_SHA="${{ env.GITHUB_SHA }}"
+          echo GITHUB_SHA: "$GITHUB_SHA"
+          echo "github_ref=${{ env.GITHUB_REF }}" >> $GITHUB_OUTPUT
+          echo "github_sha=${{ env.GITHUB_SHA }}" >> $GITHUB_OUTPUT
   j2:
     needs: j1
     runs-on: ubuntu-latest
