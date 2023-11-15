@@ -16,23 +16,24 @@ jobs:
       github_sha: ${{ steps.final.outputs.github_sha }}
       github_ref: ${{ steps.final.outputs.github_ref }}
     steps:
-      - name: Receive 
+      - name: Setup for Repo Dispatch 
+        if: github.event_name == "repository_dispatch"
         run: |
-          echo event_name ${{ github.event_name }}
           echo REF ${{ github.event.client_payload.ref }}
           echo SHA ${{ github.event.client_payload.sha }}
           echo "GITHUB_REF=${{ github.event.client_payload.ref }}" >> $GITHUB_ENV
           echo "GITHUB_SHA=${{ github.event.client_payload.sha }}" >> $GITHUB_ENV
-      - name: Receive 
-        #if: github.event == "workflow_dispatch"
+      - name: Setup for Manual Run 
+        if: github.event_name == "workflow_dispatch"
         run: |
           echo REF none
           echo SHA ${{ github.event.client_payload.sha }}
           echo "GITHUB_REF=none" >> $GITHUB_ENV
-          echo "GITHUB_SHA=${{ github.event.client_payload.sha }}" >> $GITHUB_ENV
+          echo "GITHUB_SHA=${{ github.event.inputs.sha }}" >> $GITHUB_ENV
       - name: Output
         id: final
         run: |
+          echo event_name ${{ github.event_name }}
           GITHUB_SHA="${{ env.GITHUB_SHA }}"
           echo GITHUB_SHA: "$GITHUB_SHA"
           echo "github_ref=${{ env.GITHUB_REF }}" >> $GITHUB_OUTPUT
