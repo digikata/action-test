@@ -16,6 +16,13 @@ jobs:
       github_sha: ${{ steps.final.outputs.github_sha }}
       github_ref: ${{ steps.final.outputs.github_ref }}
     steps:
+      - name: Default Info
+        run: |
+          echo event_name ${{ github.event_name }}
+          echo GITHUB_REF: "$GITHUB_REF"
+          echo GITHUB_SHA: "$GITHUB_SHA"
+          echo "github_ref=${{ env.GITHUB_REF }}" >> $GITHUB_OUTPUT
+          echo "github_sha=${{ env.GITHUB_SHA }}" >> $GITHUB_OUTPUT
       - name: Setup for Repo Dispatch 
         if: github.event_name == 'repository_dispatch'
         run: |
@@ -33,7 +40,6 @@ jobs:
       - name: Output
         id: final
         run: |
-          echo event_name ${{ github.event_name }}
           GITHUB_SHA="${{ env.GITHUB_SHA }}"
           echo GITHUB_SHA: "$GITHUB_SHA"
           echo "github_ref=${{ env.GITHUB_REF }}" >> $GITHUB_OUTPUT
