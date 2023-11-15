@@ -17,14 +17,14 @@ jobs:
       github_ref: ${{ steps.final.outputs.github_ref }}
     steps:
       - name: Setup for Repo Dispatch 
-        if: github.event_name == "repository_dispatch"
+        if: github.event_name == 'repository_dispatch'
         run: |
           echo REF ${{ github.event.client_payload.ref }}
           echo SHA ${{ github.event.client_payload.sha }}
           echo "GITHUB_REF=${{ github.event.client_payload.ref }}" >> $GITHUB_ENV
           echo "GITHUB_SHA=${{ github.event.client_payload.sha }}" >> $GITHUB_ENV
       - name: Setup for Manual Run 
-        if: github.event_name == "workflow_dispatch"
+        if: github.event_name == 'workflow_dispatch'
         run: |
           echo REF none
           echo SHA ${{ github.event.client_payload.sha }}
