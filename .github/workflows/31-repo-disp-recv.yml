@@ -40,7 +40,7 @@ jobs:
       - name: Output
         id: final
         run: |
-          GITHUB_SHA="${{ env.GITHUB_SHA }}"
+          echo GITHUB_REF: "$GITHUB_REF"
           echo GITHUB_SHA: "$GITHUB_SHA"
           echo "github_ref=${{ env.GITHUB_REF }}" >> $GITHUB_OUTPUT
           echo "github_sha=${{ env.GITHUB_SHA }}" >> $GITHUB_OUTPUT
