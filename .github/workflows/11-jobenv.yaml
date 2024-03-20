@@ -9,19 +9,17 @@ on:
   workflow_dispatch:
 
 jobs:
-  run-with-input:
+  setmyenv:
     runs-on: ubuntu-latest
 
     steps:
-      - name: setmyenv
-        env:
-          IN_SHA: ${{ inputs.image_sha }}
+      - name: set it
         run: |
           echo MYENV=foo >> $GITHUB_ENV
 
   what-is-my-env:
     runs-on: ubuntu-latest
-
+    needs: [setmyenv]
     steps:
       - name: env
         run: |
