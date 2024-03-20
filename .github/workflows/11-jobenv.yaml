@@ -1,0 +1,34 @@
+# play with dispatch vs push triggering and joining up the
+# values
+name: 11 jobenv
+
+permissions:
+  contents: read
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run-with-input:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: setmyenv
+        env:
+          IN_SHA: ${{ inputs.image_sha }}
+        run: |
+          echo MYENV=foo >> $GITHUB_ENV
+
+  what-is-my-env:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: env
+        run: |
+          echo MYENV ${{ env.MYENV }}
+      - name: env2
+        env:
+          MYENV2: ${{ env.MYENV }}
+        run: |
+          echo MYENV2 ${MYENV2}
+
